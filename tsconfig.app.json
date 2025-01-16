@@ -1,0 +1,34 @@
+{
+  "compilerOptions": {
+    /* Información de compilación */
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo", // Archivo para almacenar información incremental
+
+    /* Target y librerías */
+    "target": "ES2020",                        // Compatibilidad con ES2020
+    "useDefineForClassFields": true,           // Define campos de clase según el estándar de ES2022
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],  // Librerías necesarias para trabajar con el DOM y ES2020
+
+    /* Módulos */
+    "module": "ESNext",                        // Compatibilidad con módulos modernos
+    "moduleResolution": "bundler",            // Resolución específica para herramientas modernas como Vite
+    "allowImportingTsExtensions": true,       // Permite importar archivos con extensiones .ts/.tsx
+    "isolatedModules": true,                  // Exige que cada archivo actúe como módulo independiente
+    "moduleDetection": "force",               // Requiere explícitamente módulos con import/export
+
+    /* JSX y React */
+    "jsx": "react-jsx",                        // Habilita soporte para JSX moderno en React 17+
+
+    /* Emisión y chequeo de tipos */
+    "noEmit": true,                            // No genera archivos .js (solo chequeo de tipos)
+    "skipLibCheck": true,                      // Ignora chequeos de tipos en archivos .d.ts
+
+    /* Reglas de linting */
+    "strict": true,                            // Habilita chequeos estrictos de TypeScript
+    "noUnusedLocals": true,                    // Marca variables locales no usadas como error
+    "noUnusedParameters": true,                // Marca parámetros no usados como error
+    "noFallthroughCasesInSwitch": true,        // Evita que casos en switch "caigan" a otros casos
+    "noUncheckedSideEffectImports": true      // Detecta efectos secundarios en imports no utilizados
+  },
+  "include": ["src"],                           // Incluye todos los archivos en la carpeta `src`
+  "exclude": ["node_modules", "dist"]           // Excluye `node_modules` y la carpeta de salida
+}
