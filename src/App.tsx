@@ -1,17 +1,13 @@
-import { TodoApp } from './components/TodoApp'
-import StarGameMenu from './components/StarGameMenu/StarGameMenu'
-import Game from './components/Game/Game'
+import React from 'react';
+import Game from './components/Game/Game';
 import './App.css'
 
-function App() {
+const App: React.FC = () => {
+    return (
+        <div className="App">
+            <Game />
+        </div>
+    );
+};
 
-  return (
-    <>
-      <StarGameMenu/>
-      <TodoApp/>
-      <Game/>
-    </>
-  )
-}
-
-export default App
+export default App;
