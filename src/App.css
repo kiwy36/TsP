@@ -1,41 +1,141 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: #000;
-    color: #fff;
+    font-family: 'Orbitron', sans-serif; /* Fuente futurista */
+    background-color: #111; /* Fondo más oscuro */
+    color: #0f0; /* Color verde neón */
     text-align: center;
     margin: 0;
     padding: 0;
+    background-image: url('./assets/background.jpg'); /*imagen de fondo*/
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
-.game {
+.App {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Asegura que el contenedor ocupe toda la pantalla */
+    justify-content: center; /* Centra verticalmente */
+    align-items: center; /* Centra horizontalmente */
     padding: 20px;
 }
 
+.game {
+    background-color: rgba(0, 0, 0, 0.7); /* Fondo semi-transparente para el juego */
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.3); /* Sombra neón */
+    max-width: 800px; /* Ancho máximo para el contenedor del juego */
+}
+
 .life-counter {
-    font-size: 1.5rem;
+    font-size: 2rem;
     margin-bottom: 20px;
+    color: #f00; /* Vida en rojo */
 }
 
 .event-options {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Diseño adaptable con grid */
+    gap: 20px;
 }
 
 .event-card {
     background-color: #222;
-    border: 1px solid #fff;
-    padding: 15px 30px;
+    border: 2px solid #0f0; /* Borde neón */
+    padding: 20px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: transform 0.2s, box-shadow 0.2s; /* Transiciones suaves */
     font-size: 1.2rem;
+    border-radius: 8px;
+    overflow: hidden; /*para que la imagen no se salga del contenedor*/
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100px; /* Altura mínima para las tarjetas */
+}
+
+.event-card img {
+    max-width: 100%;
+    max-height: 150px;
+    object-fit: contain;
+    margin-bottom: 10px;
 }
 
 .event-card:hover {
-    background-color: #444;
+    transform: scale(1.05); /* Escala al pasar el mouse */
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.5); /* Sombra más intensa al pasar el mouse */
+    background-color: #333;
 }
 
 .result {
     font-size: 2rem;
     margin-top: 20px;
+}
+
+.restart-button {
+    background-color: #0f0;
+    color: #111;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    border-radius: 8px;
+    margin-top: 20px;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.restart-button:hover {
+    background-color: #0c0;
+    transform: scale(1.05);
+}
+
+
+.game-image {
+    max-width: 300px; /* Ajusta el tamaño de la imagen */
+    min-width: 300px;
+    margin-bottom: 20px;
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0 0 5px rgba(0, 255, 0, 0.3); /* Sombra suave */
+}
+
+.start-button {
+    background-color: #0f0;
+    color: #111;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.5rem; /* Aumenta el tamaño de la fuente */
+    cursor: pointer;
+    border-radius: 8px;
+    margin-top: 20px;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.start-button:hover {
+    background-color: #0c0;
+    transform: scale(1.05);
+}
+.event-card {
+    position: relative;
+    padding: 10px;
+    background: #333;
+    color: white;
+    border: none;
+    margin: 10px;
+    cursor: pointer;
+}
+
+.event-card img {
+    display: none; /* La imagen no se muestra inicialmente */
+}
+
+.event-card.selected img {
+    display: block; /* Muestra la imagen solo si la opción fue seleccionada */
+}
+
+.result {
+    margin-top: 20px;
+}
+
+button.selected {
+    background-color: #f39c12; /* Resalta la opción seleccionada */
 }

@@ -5,38 +5,73 @@ import EventCard from '../EventCard/EventCard';
 import Result from '../Result/Result';
 
 const Game: React.FC = () => {
-    // Estado de la vida de la nave
     const [life, setLife] = useState(100);
-    // Estado para controlar la instancia actual
-    const [instance, setInstance] = useState(1);
-    // Estado para controlar si el juego terminó
+    const [instance, setInstance] = useState(0);
     const [gameOver, setGameOver] = useState(false);
+    const [gameStarted, setGameStarted] = useState(false);
+    const [, setSelectedOption] = useState<null | number>(null);
 
-    // Función para manejar la selección de un evento
     const handleEventSelect = (effect: number) => {
-        setLife(prevLife => prevLife + effect);
-        if (instance < 7) {
+        setLife(prevLife => Math.max(0, prevLife + effect));
+        setSelectedOption(null);
+
+        if (instance < events.length - 1) {
             setInstance(prevInstance => prevInstance + 1);
         } else {
             setGameOver(true);
         }
     };
 
-    // Obtener tres eventos aleatorios para la instancia actual
-    const currentEvents = events.sort(() => 0.5 - Math.random()).slice(0, 3);
+    const handleRestart = () => {
+        setLife(100);
+        setInstance(0);
+        setGameOver(false);
+        setGameStarted(false);
+        setSelectedOption(null);
+    };
+
+    const handleStartGame = () => {
+        setGameStarted(true);
+    };
+
+    // Determina qué imagen mostrar según la vida
+    let imageSrc = "";
+    if (!gameStarted) {
+        imageSrc = "img-123PortadaInicio.com";
+    } else if (gameOver) {
+        imageSrc = life > 0 ? "img-124NaveVictoria.com" : "img-125NaveDestruida.com";
+    } else if (life > 70) {
+        imageSrc = "img-121NaveUno.com";
+    } else if (life > 30) {
+        imageSrc = "img-122NaveDos.com";
+    } else {
+        imageSrc = "img-126NaveTres.com";
+    }
 
     return (
         <div className="game">
             <h1>Aventura Espacial</h1>
-            <LifeCounter life={life} />
-            {!gameOver ? (
-                <div className="event-options">
-                    {currentEvents.map((event, index) => (
-                        <EventCard key={index} title={event.title} onSelect={() => handleEventSelect(event.effect)} />
-                    ))}
-                </div>
+            <img src={imageSrc} alt="Estado de la nave" className="game-image" />
+            <br />
+
+            {!gameStarted ? (
+                <button className="start-button" onClick={handleStartGame}>Comenzar</button>
+            ) : !gameOver ? (
+                <>
+                    <LifeCounter life={life} />
+                    <div className="event-group">
+                        <EventCard
+                            title={events[instance].title}
+                            options={events[instance].options}
+                            onSelect={handleEventSelect}
+                        />
+                    </div>
+                </>
             ) : (
-                <Result finalLife={life} />
+                <div>
+                    <Result finalLife={life} />
+                    <button className="restart-button" onClick={handleRestart}>Reiniciar Juego</button>
+                </div>
             )}
         </div>
     );
