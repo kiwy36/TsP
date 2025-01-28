@@ -8,7 +8,7 @@ type EventCardProps = {
         text: string;
         effect: number;
         resultDescription: string;
-        image: string; // Aquí la imagen será una URL del repositorio
+        image: string; // URL del repositorio
     }>;
 };
 
