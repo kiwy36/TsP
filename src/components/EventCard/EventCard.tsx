@@ -3,23 +3,27 @@ import React, { useState } from 'react';
 // Definición de las propiedades del componente EventCard
 type EventCardProps = {
     title: string;
-    onSelect: (effect: number) => void;
+    onSelect: (effect: number, shipPointChange: number, safetyPointChange: number) => void;
     options: Array<{
         text: string;
         effect: number;
+        shipPointChange: number; // Cambios en los puntos de combate
+        safetyPointChange: number; // Cambios en los puntos de seguridad
         resultDescription: string;
-        image: string; // URL del repositorio
+        image: string;
     }>;
 };
+
 
 const EventCard: React.FC<EventCardProps> = ({ title, onSelect, options }) => {
     const [selectedOption, setSelectedOption] = useState<null | number>(null);
 
     const handleSelect = (index: number) => {
         setSelectedOption(index);
-        onSelect(options[index].effect);
+        const selectedOption = options[index];
+        onSelect(selectedOption.effect, selectedOption.shipPointChange, selectedOption.safetyPointChange);
     };
-
+    
     return (
         <div className="event-card">
             <h3>{title}</h3>
