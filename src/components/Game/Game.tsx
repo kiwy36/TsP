@@ -1,40 +1,43 @@
-import React, { useState } from 'react';
-import { events } from '../Data/EventList';
-import LifeCounter from '../LifeCounter/LifeCounter';
-import EventCard from '../EventCard/EventCard';
-import Result from '../Result/Result';
+import React, { useState } from 'react'; // Importa React y el hook useState para manejar el estado del componente.
+import { events } from '../Data/EventList'; // Importa la lista de eventos desde el archivo EventList.
+import LifeCounter from '../LifeCounter/LifeCounter'; // Importa el componente que muestra la vida restante.
+import EventCard from '../EventCard/EventCard'; // Importa el componente que representa un evento en el juego.
+import Result from '../Result/Result'; // Importa el componente que muestra el resultado final del juego.
 
+// Definición del componente Game
 const Game: React.FC = () => {
-    const [life, setLife] = useState(100);
-    const [instance, setInstance] = useState(0);
-    const [shipPoints, setShipPoints] = useState(0); // Puntos por combate contra la nave enemiga
-    const [safetyPoints, setSafetyPoints] = useState(0); // Puntos para evaluar el estado final
-    const [gameOver, setGameOver] = useState(false);
-    const [gameStarted, setGameStarted] = useState(false);
-    const [endMessage, setEndMessage] = useState('');
+    // Estados principales del juego
+    const [life, setLife] = useState(100); // Estado de la vida de la nave, inicia en 100.
+    const [instance, setInstance] = useState(0); // Índice del evento actual en la lista de eventos.
+    const [shipPoints, setShipPoints] = useState(0); // Puntos de combate obtenidos en la partida.
+    const [safetyPoints, setSafetyPoints] = useState(0); // Puntos de seguridad obtenidos en la partida.
+    const [gameOver, setGameOver] = useState(false); // Indica si el juego ha terminado.
+    const [gameStarted, setGameStarted] = useState(false); // Indica si el juego ha comenzado.
+    const [endMessage, setEndMessage] = useState(''); // Mensaje final del juego según el desenlace.
 
+    // Maneja la selección de un evento y actualiza el estado del juego
     const handleEventSelect = (effect: number, shipPointChange: number, safetyPointChange: number) => {
         setLife((prevLife) => {
-            const newLife = Math.max(0, prevLife + effect);
-            if (newLife === 0) {
+            const newLife = Math.max(0, prevLife + effect); // Ajusta la vida sin permitir valores negativos.
+            if (newLife === 0) { // Si la vida llega a 0, el juego termina.
                 setGameOver(true);
                 calculateEnding(newLife, shipPoints + shipPointChange, safetyPoints + safetyPointChange);
             }
             return newLife;
         });
     
-        setShipPoints((prev) => prev + shipPointChange);
-        setSafetyPoints((prev) => prev + safetyPointChange);
+        setShipPoints((prev) => prev + shipPointChange); // Suma puntos de combate.
+        setSafetyPoints((prev) => prev + safetyPointChange); // Suma puntos de seguridad.
     
         if (instance < events.length - 1 && life > 0) {
-            setInstance((prevInstance) => prevInstance + 1);
+            setInstance((prevInstance) => prevInstance + 1); // Avanza al siguiente evento si el juego no ha terminado.
         } else {
-            setGameOver(true);
+            setGameOver(true); // Si no hay más eventos, finaliza el juego.
             calculateEnding(life, shipPoints + shipPointChange, safetyPoints + safetyPointChange);
         }
-        
     };
     
+    // Calcula el desenlace final basado en los puntos obtenidos
     const calculateEnding = (finalLife: number, finalShipPoints: number, finalSafetyPoints: number) => {
         if (finalLife <= 0) {
             setEndMessage('La nave fue destruida. Fin del viaje.');
@@ -42,7 +45,7 @@ const Game: React.FC = () => {
         }
     
         let endingMessage = '¡Destruiste la nave enemiga y ';
-        if (finalShipPoints >= 7) {
+        if (finalShipPoints >= 7) { // Si se acumularon suficientes puntos de combate...
             if (finalSafetyPoints >= 6) {
                 endingMessage += 'volviste sano y salvo a la base!';
             } else if (finalSafetyPoints > 0) {
@@ -50,7 +53,7 @@ const Game: React.FC = () => {
             } else {
                 endingMessage += 'estás a salvo en un punto seguro del espacio esperando refuerzos.';
             }
-        } else {
+        } else { // Si la nave enemiga escapa...
             endingMessage = 'La nave enemiga escapó ';
             if (finalSafetyPoints >= 6) {
                 endingMessage += 'pero lograste volver sano y salvo a la base.';
@@ -61,10 +64,10 @@ const Game: React.FC = () => {
             }
         }
     
-        setEndMessage(endingMessage);
+        setEndMessage(endingMessage); // Establece el mensaje final según el resultado del juego.
     };
     
-
+    // Reinicia el juego a su estado inicial
     const handleRestart = () => {
         setLife(100);
         setInstance(0);
@@ -75,10 +78,12 @@ const Game: React.FC = () => {
         setEndMessage('');
     };
 
+    // Inicia el juego cambiando el estado gameStarted a true
     const handleStartGame = () => {
         setGameStarted(true);
     };
 
+    // Determina la imagen que se mostrará según el estado del juego y la vida restante
     let imageSrc = '';
     if (!gameStarted) {
         imageSrc = 'img-123PortadaInicio.com';
@@ -92,6 +97,7 @@ const Game: React.FC = () => {
         imageSrc = 'img-126NaveTres.com';
     }
 
+    // Asigna una clase CSS según el nivel de vida
     let lifeClass = 'high';
     if (life <= 70 && life > 30) {
         lifeClass = 'medium';
@@ -136,4 +142,4 @@ const Game: React.FC = () => {
     );
 };
 
-export default Game;
+export default Game; // Exporta el componente Game para ser utilizado en la aplicación principal.
