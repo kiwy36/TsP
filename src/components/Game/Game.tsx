@@ -109,16 +109,19 @@ const Game: React.FC = () => {
 
     return (
         <div className="game">
-            <h1>Aventura Espacial</h1>
-            <img src={imageSrc} alt="Estado de la nave" className="game-image" />
+            <section className='seccion-uno'>
+                <h1>Aventura Espacial</h1>
+                <img src={imageSrc} alt="Estado de la nave" className="game-image" />
+                <LifeCounter life={life} lifeClass={lifeClass} />
+            </section>
             <br />
+            <section className='seccion-dos'>
             {!gameStarted ? (
                 <button className="start-button" onClick={handleStartGame}>
                     Comenzar
                 </button>
             ) : !gameOver ? (
                 <>
-                    <LifeCounter life={life} lifeClass={lifeClass} />
                     <div className="event-group">
                         <EventCard
                             title={events[instance].title}
@@ -138,6 +141,7 @@ const Game: React.FC = () => {
                     </button>
                 </div>
             )}
+        </section>
         </div>
     );
 };

@@ -1,55 +1,65 @@
-import React, { useState } from 'react'; // Importa React y el hook useState para manejar el estado del componente
+import React, { useState, useEffect } from 'react';
 
 // Definición de las propiedades que recibe el componente EventCard
 type EventCardProps = {
-    title: string; // Título del evento
-    onSelect: (effect: number, shipPointChange: number, safetyPointChange: number) => void; // Función que se ejecuta al seleccionar una opción
-    options: Array<{ // Lista de opciones disponibles para el evento
-        text: string; // Texto de la opción
-        effect: number; // Efecto numérico que produce la opción
-        shipPointChange: number; // Cambios en los puntos de combate de la nave
-        safetyPointChange: number; // Cambios en los puntos de seguridad de la nave
-        resultDescription: string; // Descripción del resultado al seleccionar esta opción
-        image: string; // Imagen representativa del resultado de la opción
+    title: string;
+    onSelect: (effect: number, shipPointChange: number, safetyPointChange: number) => void;
+    options: Array<{
+        text: string;
+        effect: number;
+        shipPointChange: number;
+        safetyPointChange: number;
+        resultDescription: string;
+        image: string;
     }>;
 };
 
 // Definición del componente EventCard
 const EventCard: React.FC<EventCardProps> = ({ title, onSelect, options }) => {
-    // Estado local para rastrear qué opción ha sido seleccionada
     const [selectedOption, setSelectedOption] = useState<null | number>(null);
+    const [showResult, setShowResult] = useState(false); // Controla la visibilidad del mensaje del resultado
 
     // Maneja la selección de una opción del evento
     const handleSelect = (index: number) => {
         setSelectedOption(index); // Actualiza el estado con la opción seleccionada
-        const selectedOption = options[index]; // Obtiene los detalles de la opción seleccionada
+        const selectedOption = options[index];
         // Llama a la función onSelect pasando los efectos de la opción elegida
         onSelect(selectedOption.effect, selectedOption.shipPointChange, selectedOption.safetyPointChange);
+        setShowResult(true); // Muestra el resultado
     };
 
+    // Temporizador para ocultar el resultado después de 10 segundos
+    useEffect(() => {
+        if (showResult) {
+            const timer = setTimeout(() => {
+                setShowResult(false); // Oculta el mensaje después de 10 segundos
+            }, 10000);
+            return () => clearTimeout(timer); // Limpia el temporizador si el componente se desmonta
+        }
+    }, [showResult]);
+
     return (
-        <div className="event-card"> {/* Contenedor principal de la tarjeta del evento */}
-            <h3>{title}</h3> {/* Muestra el título del evento */}
-            <div className="event-options"> {/* Contenedor de las opciones */}
+        <div className="event-card">
+            <h3>{title}</h3>
+            <div className="event-options">
                 {options.map((option, index) => (
                     <button
-                        key={index} // Asigna una clave única para cada botón
-                        onClick={() => handleSelect(index)} // Maneja la selección de la opción
-                        className={selectedOption === index ? 'selected' : ''} // Agrega una clase si la opción está seleccionada
+                        key={index}
+                        onClick={() => handleSelect(index)}
+                        className={selectedOption === index ? 'selected' : ''}
                     >
-                        {option.text} {/* Muestra el texto de la opción */}
+                        {option.text}
                     </button>
                 ))}
             </div>
-            {/* Muestra el resultado si se ha seleccionado una opción */}
-            {selectedOption !== null && (
+            {/* Mostrar el resultado solo si ha sido seleccionado una opción */}
+            {showResult && selectedOption !== null && (
                 <div className="result">
-                    <img src={options[selectedOption].image} alt={options[selectedOption].text} /> {/* Muestra la imagen del resultado */}
-                    <p>{options[selectedOption].resultDescription}</p> {/* Muestra la descripción del resultado */}
+                    <p>{options[selectedOption].resultDescription}</p>
                 </div>
             )}
         </div>
     );
 };
 
-export default EventCard; // Exporta el componente para ser usado en otros archivos
+export default EventCard;
