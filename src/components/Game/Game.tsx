@@ -85,17 +85,17 @@ const Game: React.FC = () => {
 
     // Determina la imagen que se mostrará según el estado del juego y la vida restante
     let imageSrc = '';
-    if (!gameStarted) {
-        imageSrc = 'img-123PortadaInicio.com';
-    } else if (gameOver) {
-        imageSrc = life > 0 ? 'img-124NaveVictoria.com' : 'img-125NaveDestruida.com';
-    } else if (life > 70) {
-        imageSrc = 'img-121NaveUno.com';
-    } else if (life > 30) {
-        imageSrc = 'img-122NaveDos.com';
-    } else {
-        imageSrc = 'img-126NaveTres.com';
-    }
+        if (!gameStarted) {
+            imageSrc = '/images/001.jpeg';
+        } else if (gameOver) {
+            imageSrc = life > 0 ? '/images/006.png' : '/images/007.jpeg';
+        } else if (life > 70) {
+            imageSrc = '/images/002.png';
+        } else if (life > 30) {
+            imageSrc = '/images/003.png';
+        } else {
+            imageSrc = '/images/004.png';
+        }
 
     // Asigna una clase CSS según el nivel de vida
     let lifeClass = 'high';

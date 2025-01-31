@@ -318,3 +318,93 @@ body {
     }
 }
 /*
+/* Estilos generales (ya definidos) */
+
+/* Estilos para pantallas de tabletas y móviles */
+@media (max-width: 768px) {
+    .game {
+        flex-direction: column; /* Cambia la dirección de los elementos a columna */
+        padding: 15px; /* Reduce el espacio de padding */
+        gap: 10px; /* Reduce el espacio entre los elementos */
+    }
+
+    .seccion-uno, .seccion-dos {
+        flex: none; /* Elimina la flexibilidad de los elementos */
+        width: 100%; /* Asegura que ocupen el 100% del ancho disponible */
+    }
+
+    .life-counter {
+        font-size: 1.2rem; /* Reduce el tamaño de la fuente */
+        padding: 10px 20px; /* Ajusta el padding */
+    }
+
+    .event-card {
+        padding: 15px; /* Reduce el padding */
+        font-size: 0.9rem; /* Reduce el tamaño de la fuente */
+        min-height: 120px; /* Ajusta la altura mínima */
+    }
+
+    .event-options {
+        display: flex; /* Cambia de grid a flex */
+        flex-direction: column; /* Apila las opciones en columna */
+        gap: 10px; /* Ajusta el espacio entre las opciones */
+        margin-top: 15px;
+    }
+
+    .event-options button {
+        width: 100%; /* Asegura que los botones ocupen el 100% del ancho */
+        padding: 12px; /* Ajusta el padding */
+        font-size: 0.9rem; /* Reduce el tamaño de la fuente */
+    }
+
+    .game-image {
+        max-width: 250px; /* Ajusta el tamaño de las imágenes */
+        min-width: 250px;
+        min-height: 250px;
+        margin-bottom: 15px; /* Reduce el espacio debajo de la imagen */
+    }
+
+    .start-button, .restart-button {
+        padding: 12px 25px; /* Ajusta el padding de los botones */
+        font-size: 1.2rem; /* Reduce el tamaño de la fuente */
+    }
+}
+
+@media (max-width: 480px) {
+    .game {
+        padding: 10px; /* Reduce el padding */
+        gap: 5px; /* Reduce el espacio entre los elementos */
+    }
+
+    .life-counter {
+        font-size: 1rem; /* Reduce más el tamaño de la fuente */
+        padding: 8px 15px; /* Ajusta el padding */
+    }
+
+    .event-card {
+        padding: 10px; /* Reduce el padding */
+        font-size: 0.8rem; /* Reduce aún más el tamaño de la fuente */
+        min-height: 100px; /* Ajusta la altura mínima */
+    }
+
+    .event-options button {
+        padding: 10px; /* Reduce el padding */
+        font-size: 0.8rem; /* Ajusta el tamaño de la fuente */
+    }
+
+    .game-image {
+        max-width: 200px; /* Ajusta el tamaño de las imágenes */
+        min-width: 200px;
+        min-height: 200px;
+        margin-bottom: 10px; /* Reduce el espacio debajo de la imagen */
+    }
+
+    .start-button, .restart-button {
+        padding: 10px 20px; /* Ajusta el padding de los botones */
+        font-size: 1rem; /* Reduce el tamaño de la fuente */
+    }
+
+    .seccion-uno, .seccion-dos {
+        width: 100%; /* Asegura que las secciones ocupen todo el ancho */
+    }
+}

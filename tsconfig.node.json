@@ -1,27 +1,31 @@
 {
   "compilerOptions": {
     /* Información de compilación */
-    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo", // Archivo incremental para mejorar el rendimiento de compilación
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo",
 
     /* Target y librerías */
-    "target": "ES2022",                     // Compatibilidad con ES2022 para Node.js moderno
-    "lib": ["ES2023"],                      // Funcionalidades modernas de ES2023 disponibles
+    "target": "ES2022",
+    "lib": ["ES2023"],
 
     /* Módulos */
-    "module": "ESNext",                     // Compatibilidad con módulos ECMAScript modernos
-    "moduleResolution": "bundler",         // Resolución específica para herramientas como Vite
-    "allowImportingTsExtensions": true,    // Permite importar archivos con extensiones .ts/.tsx
-    "isolatedModules": true,               // Exige que cada archivo actúe como un módulo independiente
-    "moduleDetection": "force",            // Requiere explícitamente módulos con import/export
-    "noEmit": true,                        // No genera archivos .js (solo chequeo de tipos)
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "isolatedModules": true,
+    "moduleDetection": "force",
+    "noEmit": true,
 
     /* Linting y chequeo de tipos */
-    "strict": true,                        // Activa chequeos estrictos en todo el proyecto
-    "noUnusedLocals": true,                // Marca variables locales no usadas como error
-    "noUnusedParameters": true,            // Marca parámetros no usados como error
-    "noFallthroughCasesInSwitch": true,    // Previene caídas accidentales en bloques switch
-    "noUncheckedSideEffectImports": true   // Detecta efectos secundarios en imports no utilizados
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedSideEffectImports": true,
+
+    /* Agregar tipos de Node.js */
+    "types": ["node"]
   },
-  "include": ["vite.config.ts"],            // Incluye únicamente el archivo de configuración de Vite
-  "exclude": ["node_modules", "dist"]       // Excluye node_modules y carpetas de salida
+  "include": ["vite.config.ts"],  
+  "exclude": ["node_modules", "dist"]  
 }
+
