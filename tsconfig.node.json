@@ -5,7 +5,7 @@
 
     /* Target y librerías */
     "target": "ES2022",
-    "lib": ["ES2023"],
+    "lib": ["ES2023", "DOM"],  // Se agrega "DOM" para definir Worker
 
     /* Módulos */
     "module": "ESNext",
@@ -28,4 +28,3 @@
   "include": ["vite.config.ts"],  
   "exclude": ["node_modules", "dist"]  
 }
-
