@@ -86,13 +86,13 @@ const Game: React.FC = () => {
     // Determina la imagen que se mostrará según el estado del juego y la vida restante
     let imageSrc = '';
         if (!gameStarted) {
-            imageSrc = '/images/001.jpeg';
-        } else if (gameOver) {
-            imageSrc = life > 0 ? '/images/006.png' : '/images/007.jpeg';
-        } else if (life > 70) {
             imageSrc = '/images/002.png';
+        } else if (gameOver) {
+            imageSrc = life > 0 ? '/images/003.png' : '/images/001.jpeg  ';
+        } else if (life > 70) {
+            imageSrc = '/images/006.png';
         } else if (life > 30) {
-            imageSrc = '/images/003.png';
+            imageSrc = '/images/005.png';
         } else {
             imageSrc = '/images/004.png';
         }
