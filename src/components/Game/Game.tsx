@@ -13,6 +13,7 @@ const Game: React.FC = () => {
     const [gameStarted, setGameStarted] = useState(false);
     const [endMessage, setEndMessage] = useState('');
 
+    // Esta función se encarga de aplicar el efecto de la opción seleccionada.
     const handleEventSelect = (effect: number, shipPointChange: number, safetyPointChange: number) => {
         setLife((prevLife) => {
             const newLife = Math.max(0, prevLife + effect);
@@ -22,15 +23,25 @@ const Game: React.FC = () => {
             }
             return newLife;
         });
-    
+
         setShipPoints((prev) => prev + shipPointChange);
         setSafetyPoints((prev) => prev + safetyPointChange);
-    
-        if (instance < gameEvents.events.length - 1 && life > 0) {
-            setInstance((prevInstance) => prevInstance + 1);
-        } else {
+
+        // Si la nave sufre daños críticos en el último evento,
+        // se puede calcular el final inmediatamente.
+        // De lo contrario, la actualización de la instancia se hará
+        // una vez transcurridos los 8 segundos en EventCard.
+        if(instance === gameEvents.events.length - 1 && life > 0) {
             setGameOver(true);
             calculateEnding(life, shipPoints + shipPointChange, safetyPoints + safetyPointChange);
+        }
+    };
+
+    // Esta función se llama desde EventCard una vez finalizada la transición.
+    const handleEventComplete = () => {
+        // Si el juego no ha terminado, avanzamos a la siguiente instancia.
+        if (!gameOver && instance < gameEvents.events.length - 1) {
+            setInstance((prevInstance) => prevInstance + 1);
         }
     };
 
@@ -120,6 +131,7 @@ const Game: React.FC = () => {
                             onSelect={(effect, shipPointChange, safetyPointChange) =>
                                 handleEventSelect(effect, shipPointChange, safetyPointChange)
                             }
+                            onEventComplete={handleEventComplete}
                         />
                     </div>
                 ) : (
